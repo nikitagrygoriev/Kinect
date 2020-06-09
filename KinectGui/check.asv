@@ -1,0 +1,21 @@
+function ptCloud = procesData)_
+
+A = readmatrix('BananaColor_2.txt');
+
+m = uint8(reshape(A, 1080,1920,3));
+
+B = readmatrix('BananaDepth_2.txt');
+
+m2 = uint16(reshape(B, 424, 512));
+
+[processed_depthImage,zeroPixels] = Kinect_DepthNormalization(depthImage);
+
+ptCloud = pcfromkinect(depthDevice, processed_depthImage, m);
+
+ptCloud.Color = FindObject(ptCloud);
+
+cropped_point_cloud = ptCloud.Location(200:840,600:1300,:);
+
+figure(2)
+mesh(x);
+
